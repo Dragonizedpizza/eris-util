@@ -1,10 +1,3 @@
-export interface APIAuthorData {
-	name: string;
-	url?: string;
-	icon_url?: string;
-	proxy_icon_url?: string;
-}
-
 export interface AuthorData {
 	name: string;
 	url?: string;
@@ -18,13 +11,6 @@ export interface FieldData {
 	inline?: boolean;
 }
 
-export interface APIMediaData {
-	url: string;
-	proxy_url?: string;
-	height?: number;
-	width?: number;
-}
-
 export interface MediaData {
 	url: string;
 	proxyURL?: string;
@@ -36,6 +22,19 @@ export interface FooterData {
 	text: string;
 	iconURL?: string;
 	proxyIconURL?: string;
+}
+
+export interface APIAuthorData {
+	name: string;
+	url?: string;
+	icon_url?: string;
+	proxy_icon_url?: string;
+}
+export interface APIMediaData {
+	url: string;
+	proxy_url?: string;
+	height?: number;
+	width?: number;
 }
 
 export interface APIFooterData {

@@ -2,12 +2,13 @@ export interface AuthorData {
 	name: string;
 	url?: string;
 	iconURL?: string;
+	proxyIconURL?: string;
 }
 
 export interface FieldData {
 	name: string;
 	value: string;
-	inline: boolean;
+	inline?: boolean;
 }
 
 export interface MediaData {
@@ -19,7 +20,14 @@ export interface MediaData {
 
 export interface FooterData {
 	text: string;
-	iconURL: string;
+	iconURL?: string;
+	proxyIconURL?: string;
+}
+
+export interface APIFooterData {
+	text: string;
+	icon_url?: string;
+	proxy_icon_url?: string;
 }
 
 export interface EmbedData {

@@ -4,36 +4,122 @@ import {
 	FooterData,
 	MediaData,
 	EmbedData,
-	APIFooterData
+	APIFooterData,
+	APIAuthorData,
+	APIMediaData,
+	ColorResolvable,
 } from "../type/Embed";
-import { ColorResolvable, resolveColor } from "../util";
+import { resolveColor } from "../util";
 
 /**
  * Represents an embed/provides easier embed creation.
  */
-
 export class Embed {
+
+
 	public author?: AuthorData;
 	public title?: string;
 	public description?: string;
 	public url?: string;
 	public color?: number;
-	public fields: FieldData[] = [];
+	public fields!: FieldData[];
 	public thumbnail?: MediaData;
 	public image?: MediaData;
 	public video?: MediaData;
-	public timestamp?: string;
+	public timestamp?: number;
 	public footer?: FooterData;
 
 	public constructor(data?: EmbedData) {
 		if (!data) return;
 
-		if ("author" in data) this.setAuthor(data.author!);
-		if ("title" in data) this.setTitle(data.title!);
-		if ("description" in data) this.setDescription(data.description!);
-		if ("url" in data) this.setURL(data.url!);
-		if ("color" in data) this.setColor(data.color!);
-		if ("fields" in data) this.addFields(...data.fields!);
+		/**
+		 * The embed author.
+		 * @type {APIAuthorData?}
+		 */
+
+		this.author = data.author;
+		
+		/**
+		 * The embed title.
+		 * @type {String?}
+		 */
+
+		this.title = data.title;
+
+		/**
+		 * The embed description.
+		 * @type {String?}
+		 */
+
+		this.description = data.description;
+
+		/**
+		 * The embed url.
+		 * @type {String?}
+		 */
+
+		this.url = data.url;
+
+		/**
+		 * The embed color.
+		 * @type {Number?}
+		 */
+
+		this.color = data.color;
+
+		/**
+		 * The embed fields.
+		 * @type {APIFieldData[]}
+		 */
+
+		this.fields = [];
+
+		if (data.fields)
+			for (const field of data.fields)
+				this.fields.push(field);
+		
+		/**
+		 * The embed thumbnail.
+		 * @type {APIMediaData?}
+		 */
+
+		this.thumbnail = data.thumbnail;
+
+		/**
+		 * The embed image.
+		 * @type {APIMediaData?}
+		 */
+
+		this.image = data.image;
+
+		/**
+		 * The embed video.
+		 * @type {APIMediaData?}
+		 */
+
+		this.video = data.video;
+
+		/**
+		 * The embed timestamp.
+		 * @type {Number?}
+		 */
+
+		this.timestamp = data.timestamp;
+
+		/**
+		 * The embed footer.
+		 * @type {APIFooterData?}
+		 */
+
+		this.footer = data.footer;
+	}
+	private one<T = null>(
+		data: any,
+		...keys: string[]
+	): (T extends null ? any : T) | undefined {
+		for (const key of keys) if (key in data) return data[key];
+
+		return undefined;
 	}
 
 	/**
@@ -57,27 +143,51 @@ export class Embed {
 	 */
 
 	public setAuthor(author: AuthorData): Embed;
-	public setAuthor(author: string, url?: string, iconURL?: string, proxyIconURL?: string): Embed;
 	public setAuthor(
-		author: AuthorData | string,
+		author: string,
+		url?: string,
+		iconURL?: string,
+		proxyIconURL?: string,
+	): Embed;
+	public setAuthor(
+		author: AuthorData | APIAuthorData | string,
 		url?: string,
 		iconURL?: string,
 		proxyIconURL?: string,
 	): Embed {
-		let setAuthor;
-
-		if (typeof author === "object") setAuthor = author;
-		else
-			setAuthor = {
-				name: author,
-				url,
-				iconURL,
-				proxyIconURL,
-			};
-
-		this.author = setAuthor;
+		this.author = this._resolveAuthor(author, url, iconURL, proxyIconURL);
 
 		return this;
+	}
+
+	private _resolveAuthor(
+		author: AuthorData | APIAuthorData | string,
+		url?: string,
+		iconURL?: string,
+		proxyIconURL?: string,
+	): APIAuthorData {
+		let returnAuthor;
+
+		if (typeof author === "string")
+			returnAuthor = {
+				name: author,
+				url,
+				icon_url: iconURL,
+				proxy_icon_url: proxyIconURL,
+			};
+		else
+			returnAuthor = {
+				name: author.name,
+				url: this.one(author, "url", "URL"),
+				icon_url: this.one<string>(author, "icon_url", "iconURL"),
+				proxy_icon_url: this.one<string>(
+					author,
+					"proxy_icon_url",
+					"proxyIconURL",
+				),
+			};
+
+		return returnAuthor;
 	}
 
 	/**
@@ -235,18 +345,7 @@ export class Embed {
 		height?: number,
 		width?: number,
 	): Embed {
-		let setThumbnail;
-
-		if (typeof thumbnail === "string")
-			setThumbnail = {
-				url: thumbnail,
-				proxyURL,
-				height,
-				width,
-			};
-		else setThumbnail = thumbnail;
-
-		this.thumbnail = setThumbnail;
+		this.thumbnail = this._resolveMedia(thumbnail, proxyURL, height, width);
 
 		return this;
 	}
@@ -272,22 +371,47 @@ export class Embed {
 	 */
 
 	public setImage(image: MediaData): Embed;
-	public setImage(image: string, proxyURL?: string, height?: number, width?: number): Embed;
-	public setImage(image: MediaData | string, proxyURL?: string, height?: number, width?: number): Embed {
-		let setImage;
+	public setImage(
+		image: string,
+		proxyURL?: string,
+		height?: number,
+		width?: number,
+	): Embed;
+	public setImage(
+		image: MediaData | string,
+		proxyURL?: string,
+		height?: number,
+		width?: number,
+	): Embed {
+		this.image = this._resolveMedia(image, proxyURL, height, width);
 
-		if (typeof image === "string")
-			setImage = {
-				url: image,
-				proxyURL,
+		return this;
+	}
+
+	private _resolveMedia(
+		media: MediaData | string,
+		proxyURL?: string,
+		height?: number,
+		width?: number,
+	): APIMediaData {
+		let returnMedia;
+
+		if (typeof media === "string")
+			returnMedia = {
+				url: media,
+				proxy_url: proxyURL,
 				height,
 				width,
 			};
-		else setImage = image;
+		else
+			returnMedia = {
+				url: media.url,
+				proxy_url: this.one<string>(media, "proxy_url", "proxyURL"),
+				height: media.height,
+				width: media.width,
+			};
 
-		this.image = setImage;
-
-		return this;
+		return returnMedia;
 	}
 
 	/**
@@ -311,24 +435,6 @@ export class Embed {
 		return this;
 	}
 
-	private _resolveFooter(footer: FooterData | string, iconURL?: string, proxyIconURL?: string): APIFooterData {
-		let returnFooter;
-
-		if (typeof footer === "string")
-			returnFooter = {
-				text: footer,
-				icon_url: iconURL,
-				proxy_icon_url: proxyIconURL,
-			};
-		else returnFooter = {
-			text: footer.text,
-			icon_url: footer.iconURL,
-			proxy_icon_url: footer.proxyIconURL,
-		};
-
-		return returnFooter;
-	}
-
 	/**
 	 * Set the footer of this embed.
 	 * @param {FooterData | string} footer The footer data as an object, or the footer text as a string.
@@ -348,10 +454,45 @@ export class Embed {
 	 */
 
 	public setFooter(footer: FooterData): Embed;
-	public setFooter(footer: string, iconURL?: string, proxyIconURL?: string): Embed;
-	public setFooter(footer: FooterData | string, iconURL?: string, proxyIconURL?: string): Embed {
+	public setFooter(
+		footer: string,
+		iconURL?: string,
+		proxyIconURL?: string,
+	): Embed;
+	public setFooter(
+		footer: FooterData | string,
+		iconURL?: string,
+		proxyIconURL?: string,
+	): Embed {
 		this.footer = this._resolveFooter(footer, iconURL, proxyIconURL);
 
 		return this;
+	}
+
+	private _resolveFooter(
+		footer: FooterData | string,
+		iconURL?: string,
+		proxyIconURL?: string,
+	): APIFooterData {
+		let returnFooter;
+
+		if (typeof footer === "string")
+			returnFooter = {
+				text: footer,
+				icon_url: iconURL,
+				proxy_icon_url: proxyIconURL,
+			};
+		else
+			returnFooter = {
+				text: footer.text,
+				icon_url: this.one<string>(footer, "icon_url", "iconURL"),
+				proxy_icon_url: this.one<string>(
+					footer,
+					"proxy_icon_url",
+					"proxyIconURL",
+				),
+			};
+
+		return returnFooter;
 	}
 }

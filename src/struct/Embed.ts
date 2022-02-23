@@ -15,8 +15,6 @@ import { resolveColor } from "../util";
  * Represents an embed/provides easier embed creation.
  */
 export class Embed {
-
-
 	public author?: AuthorData;
 	public title?: string;
 	public description?: string;
@@ -38,7 +36,7 @@ export class Embed {
 		 */
 
 		this.author = data.author;
-		
+
 		/**
 		 * The embed title.
 		 * @type {String?}
@@ -75,9 +73,8 @@ export class Embed {
 		this.fields = [];
 
 		if (data.fields)
-			for (const field of data.fields)
-				this.fields.push(field);
-		
+			for (const field of data.fields) this.fields.push(field);
+
 		/**
 		 * The embed thumbnail.
 		 * @type {APIMediaData?}

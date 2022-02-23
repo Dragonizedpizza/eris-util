@@ -1,14 +1,15 @@
-import { ButtonOptions } from "../type/Button";
+import { BaseComponent } from "./BaseComponent";
+import { ButtonOptions, ButtonStyles } from "../type/Button";
 import { Constants } from "eris";
 
-const { ComponentTypes, ButtonStyles } = Constants;
+const { ButtonStyles } = Constants;
 
 /**
  * Represents a button/provides easier button creation.
+ * @extends {BaseComponent}
  */
 
-export class Button {
-	public type: number = ComponentTypes.BUTTON;
+export class Button extends BaseComponent<"BUTTON"> {
 	public custom_id?: string;
 	public disabled?: boolean;
 	public emoji?: string;
@@ -17,6 +18,8 @@ export class Button {
 	public url?: string;
 
 	public constructor(data: ButtonOptions) {
+		super("BUTTON");
+
 		/**
 		 * The button custom ID.
 		 * @type {String}
@@ -109,17 +112,17 @@ export class Button {
 
 	/**
 	 * Set the button style.
-	 * @param {keyof typeof ButtonStyles | number} style The button style.
+	 * @param {keyof ButtonStyles | number} style The button style.
 	 * @returns {Button}
 	 */
 
-	public setStyle(style: keyof typeof ButtonStyles | number): Button {
+	public setStyle(style: keyof ButtonStyles | number): Button {
 		this.style = this._resolveStyle(style);
 
 		return this;
 	}
 
-	private _resolveStyle(style: keyof typeof ButtonStyles | number): number {
+	private _resolveStyle(style: keyof ButtonStyles | number): number {
 		return typeof style === "number"
 			? style
 			: (ButtonStyles as Record<string, number>)[style];

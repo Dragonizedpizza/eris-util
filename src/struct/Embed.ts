@@ -260,9 +260,17 @@ export class Embed {
 	 * 	name: "Cool Field 1",
 	 * 	value: "What a cool value!",
 	 * });
+	 * // Inline field.
+	 * embed.addField({
+	 * 	name: "Cool Field 2",
+	 * 	value: "What a cool value!",
+	 * 	inline: true,
+	 * });
 	 * @example
 	 * // Add a field to the embed (as parameters).
 	 * embed.addField("Cool Field 1", "What a cool value!");
+	 * // Inline field.
+	 * embed.addField("Cool Field 2", "What a cool value!", true);
 	 */
 
 	public addField(field: FieldData): Embed;
@@ -297,6 +305,7 @@ export class Embed {
 	 * 	name: "Cool Field 1",
 	 * 	value: "What a cool field!",
 	 * }, {
+	 * 	// An inline field.
 	 * 	name: "Cool Field 2",
 	 * 	value: "What a cool inline field!",
 	 * 	inline: true,
@@ -320,13 +329,13 @@ export class Embed {
 	 * // Set the thumbnail of the embed (as an object).
 	 * embed.setThumbnail({
 	 * 	url: "https://example.com/thumbnail.png",
-	 *  proxyURL: "https://example.com/thumbnail.png",
+	 *  proxyURL: "https://example.com/proxy-thumbnail",
 	 *  height: 128,
 	 *  width: 128,
 	 * });
 	 * @example
 	 * // Set the thumbnail of the embed (as a string).
-	 * embed.setThumbnail("https://example.com/thumbnail.png", "https://example.com/thumbnail.png");
+	 * embed.setThumbnail("https://example.com/thumbnail.png", "https://example.com/proxy-thumbnail");
 	 */
 
 	public setThumbnail(thumbnail: MediaData): Embed;
@@ -358,13 +367,13 @@ export class Embed {
 	 * // Set the image of the embed (as an object).
 	 * embed.setImage({
 	 * 	url: "https://example.com/image.png",
-	 * proxyURL: "https://example.com/image.png",
-	 * height: 128,
-	 * width: 128,
+	 * 	proxyURL: "https://example.com/proxy-image",
+	 * 	height: 128,
+	 * 	width: 128,
 	 * });
 	 * @example
 	 * // Set the image of the embed (as a string).
-	 * embed.setImage("https://example.com/image.png", "https://example.com/image.png", 128, 128);
+	 * embed.setImage("https://example.com/image.png", "https://example.com/proxy-image", 128, 128);
 	 */
 
 	public setImage(image: MediaData): Embed;
@@ -419,6 +428,7 @@ export class Embed {
 	 * // Set the timestamp of the embed (as a date).
 	 * embed.setTimestamp(new Date());
 	 * // Set the timestamp of the embed (as a number).
+	 * embed.setTimestamp(1568888888);
 	 */
 
 	public setTimestamp(timestamp: Date): Embed;
@@ -447,7 +457,7 @@ export class Embed {
 	 * });
 	 * @example
 	 * // Set the footer of the embed (as a string).
-	 * embed.setFooter("Example footer", "https://example.com/footer.png", "https://example.com/proxy-footer.png");
+	 * embed.setFooter("Example footer", "https://example.com/footer.png", "https://example.com/proxy-footer");
 	 */
 
 	public setFooter(footer: FooterData): Embed;

@@ -6,5 +6,7 @@ export interface ButtonOptions {
     label?: string;
     emoji?: string;
     disabled?: boolean;
-    style: keyof typeof Constants.ButtonStyles | number;
+    style: keyof ButtonStyles | number;
 };
+
+export type ButtonStyles = typeof Constants.ButtonStyles;

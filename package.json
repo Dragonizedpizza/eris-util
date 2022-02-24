@@ -9,7 +9,7 @@
 		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"keywords": ["eris", "utilities", "eris-utils", "eris-util],
+	"keywords": ["eris", "utilities", "eris-utils", "eris-util"],
 	"author": "Dragonizedpizza",
 	"license": "ISC",
 	"dependencies": {

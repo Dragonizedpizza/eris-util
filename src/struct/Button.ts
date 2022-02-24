@@ -1,5 +1,4 @@
 import { BaseComponent } from "./BaseComponent";
-import { ButtonOptions, ButtonStyles } from "../type/Button";
 import { Constants } from "eris";
 
 const { ButtonStyles } = Constants;
@@ -157,4 +156,15 @@ export class Button extends BaseComponent<"BUTTON"> {
 
 		return this;
 	}
+}
+
+export type ButtonStyles = Constants["ButtonStyles"];
+
+export interface ButtonOptions {
+	url?: string;
+	customID?: string;
+	label?: string;
+	emoji?: string;
+	disabled?: boolean;
+	style: keyof ButtonStyles | number;
 }

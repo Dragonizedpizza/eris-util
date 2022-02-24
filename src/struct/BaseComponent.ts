@@ -1,4 +1,3 @@
-import { ComponentTypes } from "../type";
 import { Constants } from "eris";
 
 const { ComponentTypes } = Constants;
@@ -21,3 +20,6 @@ export class BaseComponent<TypeValue extends keyof ComponentTypes> {
 		) as ComponentTypes[TypeValue];
 	}
 }
+
+export type ComponentTypes = Constants["ComponentTypes"];
+export type UsableComponent = BaseComponent<"BUTTON" | "SELECT_MENU">;

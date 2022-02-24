@@ -1,5 +1,4 @@
-import type { UsableComponent } from "../type";
-import { BaseComponent } from "./BaseComponent";
+import { BaseComponent, UsableComponent } from "./BaseComponent";
 
 /**
  * A row of components.

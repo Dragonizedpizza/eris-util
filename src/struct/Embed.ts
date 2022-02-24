@@ -1,15 +1,4 @@
-import {
-	AuthorData,
-	FieldData,
-	FooterData,
-	MediaData,
-	EmbedData,
-	APIFooterData,
-	APIAuthorData,
-	APIMediaData,
-	ColorResolvable,
-} from "../type/Embed";
-import { resolveColor } from "../util";
+import { resolveColor, type ColorResolvable } from "../util";
 
 /**
  * Represents an embed/provides easier embed creation.
@@ -502,4 +491,63 @@ export class Embed {
 
 		return returnFooter;
 	}
+}
+
+export interface AuthorData {
+	name: string;
+	url?: string;
+	iconURL?: string;
+	proxyIconURL?: string;
+}
+
+export interface FieldData {
+	name: string;
+	value: string;
+	inline?: boolean;
+}
+
+export interface MediaData {
+	url: string;
+	proxyURL?: string;
+	height?: number;
+	width?: number;
+}
+
+export interface FooterData {
+	text: string;
+	iconURL?: string;
+	proxyIconURL?: string;
+}
+
+export interface APIAuthorData {
+	name: string;
+	url?: string;
+	icon_url?: string;
+	proxy_icon_url?: string;
+}
+export interface APIMediaData {
+	url: string;
+	proxy_url?: string;
+	height?: number;
+	width?: number;
+}
+
+export interface APIFooterData {
+	text: string;
+	icon_url?: string;
+	proxy_icon_url?: string;
+}
+
+export interface EmbedData {
+	author?: AuthorData;
+	title?: string;
+	description?: string;
+	url?: string;
+	color?: number;
+	fields?: FieldData[];
+	thumbnail?: MediaData;
+	image?: MediaData;
+	video?: MediaData;
+	timestamp?: number;
+	footer?: FooterData;
 }

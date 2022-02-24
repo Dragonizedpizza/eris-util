@@ -1,5 +1,3 @@
-import { ColorStrings, ColorResolvable } from "../type/Embed";
-
 export const Colors: Record<ColorStrings, number> = {
 	DEFAULT: 0x000000,
 	WHITE: 0xffffff,
@@ -55,3 +53,43 @@ export function resolveColor(color: ColorResolvable): number {
 
 	return color;
 }
+
+export type HexColorString = `#${string}`;
+
+export type ColorStrings =
+	| "DEFAULT"
+	| "WHITE"
+	| "AQUA"
+	| "GREEN"
+	| "BLUE"
+	| "YELLOW"
+	| "PURPLE"
+	| "LUMINOUS_VIVID_PINK"
+	| "FUCHSIA"
+	| "GOLD"
+	| "ORANGE"
+	| "RED"
+	| "GREY"
+	| "NAVY"
+	| "DARK_AQUA"
+	| "DARK_GREEN"
+	| "DARK_BLUE"
+	| "DARK_PURPLE"
+	| "DARK_VIVID_PINK"
+	| "DARK_GOLD"
+	| "DARK_ORANGE"
+	| "DARK_RED"
+	| "DARK_GREY"
+	| "DARKER_GREY"
+	| "LIGHT_GREY"
+	| "DARK_NAVY"
+	| "BLURPLE"
+	| "GREYPLE"
+	| "DARK_BUT_NOT_BLACK"
+	| "NOT_QUITE_BLACK";
+
+export type ColorResolvable =
+	| (ColorStrings | "DEFAULT" | "RANDOM")
+	| number
+	| number[]
+	| HexColorString;

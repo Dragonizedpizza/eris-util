@@ -1,4 +1,3 @@
-import { SelectMenuOptions, SelectOption } from "../type/SelectMenu";
 import { BaseComponent } from "./BaseComponent";
 
 export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
@@ -9,10 +8,8 @@ export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
 	public max_values?: number;
 	public disabled?: string;
 
-	public constructor(data?: SelectMenuOptions) {
+	public constructor(data: SelectMenuOptions = {} as SelectMenuOptions) {
 		super("SELECT_MENU");
-
-		if (!data) data = {} as SelectMenuOptions;
 
 		/**
 		 * The select menu custom ID.
@@ -99,24 +96,25 @@ export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
 		return this;
 	}
 
-    /**
-     * Add an option to this select menu.
-     * @param {SelectOption | string} option The option to add, as an object or the option label, as a string.
-     * @param {String} value The option value.
-     * @param {String} description The option description. 
-     * @param {String} emoji The option emoji.
-     * @param {Boolean} isDefault Whether this option is the default option.
-     * @returns {SelectMenu}
-     * @example
-     * // Add an option to the select menu (as an object).
-     * selectMenu.addOption({
-     *  label: "Option 1",
-     *  value: "option-1",
-     *  description: "This is option 1.",
-     * });
-     * // Add an option to the select menu (as parameters).
-     * selectMenu.addOption("Option 2", "option-2", "This is option 2.", true);
-     */
+	/**
+	 * Add an option to this select menu.
+	 * @param {SelectOption | string} option The option to add, as an object or the option label, as a string.
+	 * @param {String} value The option value.
+	 * @param {String} description The option description.
+	 * @param {String} emoji The option emoji.
+	 * @param {Boolean} isDefault Whether this option is the default option.
+	 * @returns {SelectMenu}
+	 * @example
+	 * // Add an option to the select menu (as an object).
+	 * selectMenu.addOption({
+	 *  label: "Option 1",
+	 *  value: "option-1",
+	 *  description: "This is option 1.",
+	 * });
+	 * // Add an option to the select menu (as parameters).
+	 * selectMenu.addOption("Option 2", "option-2", "This is option 2.", true);
+	 */
+
 	public addOption(
 		option: string,
 		value: string,
@@ -156,4 +154,21 @@ export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
 			};
 		else return option;
 	}
+}
+
+export interface SelectOption {
+	label: string;
+	value: string;
+	description?: string;
+	emoji?: string;
+	default?: boolean;
+}
+
+export interface SelectMenuOptions {
+	customID: string;
+	disabled?: boolean;
+	options: SelectOption[];
+	placeholder?: string;
+	minValues?: number;
+	maxValues?: number;
 }

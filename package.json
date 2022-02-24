@@ -1,9 +1,12 @@
 {
 	"name": "erisextra",
 	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"description": "Utilities for the Discord API library eris.",
+	"main": "dist/index.js",
+	"typings": "dist/index.d.ts",
 	"scripts": {
+		"prepublish": "npm run build",
+		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
@@ -11,5 +14,8 @@
 	"license": "ISC",
 	"dependencies": {
 		"eris": "^0.16.1"
+	},
+	"devDependencies": {
+		"typescript": "^4.5.5"
 	}
 }

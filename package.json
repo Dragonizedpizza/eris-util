@@ -1,7 +1,7 @@
 {
 	"name": "eris-util",
 	"version": "1.0.0",
-	"description": "Utilities for the Discord API library eris.",
+	"description": "Utilities for the Discord API library eris",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
 	"scripts": {

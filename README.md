@@ -82,3 +82,18 @@ bot.createMessage(msg.channel.id, {
 	components: [new ActionRow().addComponent(button)],
 });
 ```
+
+#### Select Menus
+```js
+const menu = new SelectMenu();
+
+menu
+	.setCustomId("select_menu")
+	.addOption({
+		label: "Option 1",
+		value: "option_one",
+		description: "Option 1!"
+	});
+```
+
+Refer to the types/jsdoc comments for more information.

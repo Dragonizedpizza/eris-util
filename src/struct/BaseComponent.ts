@@ -1,7 +1,7 @@
 import { ComponentTypes } from "../type";
 import { Constants } from "eris";
 
-const{ ComponentTypes } = Constants;
+const { ComponentTypes } = Constants;
 
 /**
  * Represents a basic message component.
@@ -16,7 +16,8 @@ export class BaseComponent<TypeValue extends keyof ComponentTypes> {
 		 * @type {Number}
 		 */
 
-		this.type =
-			(typeof type === "number" ? type : ComponentTypes[type]) as ComponentTypes[TypeValue];
+		this.type = (
+			typeof type === "number" ? type : ComponentTypes[type]
+		) as ComponentTypes[TypeValue];
 	}
 }

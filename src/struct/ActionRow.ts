@@ -7,40 +7,40 @@ import { BaseComponent } from "./BaseComponent";
  */
 
 export class ActionRow extends BaseComponent<"ACTION_ROW"> {
-    public components: UsableComponent[];
-    
-    constructor(components: UsableComponent[]) {
-        super("ACTION_ROW");
+	public components: UsableComponent[];
 
-        /**
-         * The components within this action row.
-         * @type {UsableComponent[]}
-         */
+	constructor(components: UsableComponent[]) {
+		super("ACTION_ROW");
 
-        this.components = components;
-    }
+		/**
+		 * The components within this action row.
+		 * @type {UsableComponent[]}
+		 */
 
-    /**
-     * Add a component to this action row.
-     * @param {UsableComponent} component The component to add. 
-     * @returns {ActionRow}
-     */
+		this.components = components;
+	}
 
-    public addComponent(component: UsableComponent): ActionRow {
-        this.components.push(component);
+	/**
+	 * Add a component to this action row.
+	 * @param {UsableComponent} component The component to add.
+	 * @returns {ActionRow}
+	 */
 
-        return this;
-    }
+	public addComponent(component: UsableComponent): ActionRow {
+		this.components.push(component);
 
-    /**
-     * Add multiple components to this action row.
-     * @param {UsableComponent} components The components to add.
-     * @returns {ActionRow}
-     */
+		return this;
+	}
 
-    public addComponents(...components: UsableComponent[]): ActionRow {
-        this.components.push(...components);
+	/**
+	 * Add multiple components to this action row.
+	 * @param {UsableComponent} components The components to add.
+	 * @returns {ActionRow}
+	 */
 
-        return this;
-    }
-};
+	public addComponents(...components: UsableComponent[]): ActionRow {
+		this.components.push(...components);
+
+		return this;
+	}
+}

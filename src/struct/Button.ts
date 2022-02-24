@@ -66,6 +66,9 @@ export class Button extends BaseComponent<"BUTTON"> {
 	 * Set the custom ID of this button.
 	 * @param {String} id The button custom ID.
 	 * @returns {Button}
+	 * @example
+	 * // Create a button with a custom ID.
+	 * button.setCustomID("my-button");
 	 */
 
 	public setCustomID(id: string): Button {
@@ -78,6 +81,9 @@ export class Button extends BaseComponent<"BUTTON"> {
 	 * Sets whether the button is disabled.
 	 * @param {Boolean} disabled Whether the button is disabled.
 	 * @returns {Button}
+	 * @example
+	 * // Disable a button.
+	 * button.setDisabled();
 	 */
 
 	public setDisabled(disabled: boolean = true): Button {
@@ -90,6 +96,9 @@ export class Button extends BaseComponent<"BUTTON"> {
 	 * Set the button emoji.
 	 * @param {String} emoji The button emoji.
 	 * @returns {Button}
+	 * @example
+	 * // Create a button with an emoji.
+	 * button.setEmoji("🔥");
 	 */
 
 	public setEmoji(emoji: string): Button {
@@ -102,6 +111,9 @@ export class Button extends BaseComponent<"BUTTON"> {
 	 * Set the button label.
 	 * @param {String?} label The button label.
 	 * @returns {Button}
+	 * @example
+	 * // Create a button with a label.
+	 * button.setLabel("My Button");
 	 */
 
 	public setLabel(label: string): Button {
@@ -114,6 +126,9 @@ export class Button extends BaseComponent<"BUTTON"> {
 	 * Set the button style.
 	 * @param {keyof ButtonStyles | number} style The button style.
 	 * @returns {Button}
+	 * @example
+	 * // Create a button with a style.
+	 * button.setStyle("PRIMARY");
 	 */
 
 	public setStyle(style: keyof ButtonStyles | number): Button {
@@ -132,6 +147,9 @@ export class Button extends BaseComponent<"BUTTON"> {
 	 * Sets the button URL (only for buttons of 'LINK' type).
 	 * @param {String?} url The button URL.
 	 * @returns {Button}
+	 * @example
+	 * // Create a button with a URL.
+	 * button.setURL("https://example.com");
 	 */
 
 	public setURL(url: string): Button {
@@ -139,4 +157,4 @@ export class Button extends BaseComponent<"BUTTON"> {
 
 		return this;
 	}
-};
+}

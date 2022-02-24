@@ -1,5 +1,5 @@
 {
-	"name": "erisextra",
+	"name": "eris-util",
 	"version": "1.0.0",
 	"description": "Utilities for the Discord API library eris.",
 	"main": "dist/index.js",
@@ -9,8 +9,8 @@
 		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": ["eris", "utilities", "eris-utils", "eris-util],
+	"author": "Dragonizedpizza",
 	"license": "ISC",
 	"dependencies": {
 		"eris": "^0.16.1"

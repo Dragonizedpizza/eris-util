@@ -6,15 +6,15 @@ import { Client } from "eris";
  * @abstract
  */
 
-export class Collector<V> extends EventEmitter {
+export abstract class Collector<V> extends EventEmitter {
 	private _timeout: NodeJS.Timeout | null;
 	private _idleTimeout: NodeJS.Timeout | null;
 
 	public readonly client!: Client;
 	public collected: V[];
 	public ended: boolean;
-	public filter: CollectorFilter;
-	public options: CollectorOptions;
+	public filter: CollectorFilter<V[]>;
+	public options: CollectorOptions<V[]>;
 
 	constructor(client: Client, options: CollectorOptions = {}) {
 		super();
@@ -99,7 +99,7 @@ export class Collector<V> extends EventEmitter {
 	 * @emits Collector#collect
 	 */
 
-	async handleCollect(...args: unknown[]) {
+	public async handleCollect(...args: unknown[]): Promise<void> {
 		// Silence typescript with eval.
 		const collect = await eval("this.collect(...args)");
 
@@ -131,7 +131,7 @@ export class Collector<V> extends EventEmitter {
 	 * @readonly
 	 */
 
-	get next() {
+	public get next(): Promise<V> {
 		return new Promise((resolve, reject) => {
 			if (this.ended) {
 				reject(this.collected);
@@ -164,7 +164,7 @@ export class Collector<V> extends EventEmitter {
 	 * @emits Collector#end
 	 */
 
-	stop(reason = "user") {
+	public stop(reason: string = "user"): void {
 		if (this.ended) return;
 
 		if (this._timeout) {
@@ -190,7 +190,7 @@ export class Collector<V> extends EventEmitter {
 	 * Resets the collector's timeout and idle timer.
 	 * @param {CollectorResetTimerOptions} [options] Options for resetting
 	 */
-	resetTimer({ time, idle }: CollectorResetTimerOptions = {}) {
+	public resetTimer({ time, idle }: CollectorResetTimerOptions = {}): void {
 		if (this._timeout) {
 			clearTimeout(this._timeout);
 			this._timeout = setTimeout(
@@ -211,7 +211,7 @@ export class Collector<V> extends EventEmitter {
 	 * Checks whether the collector should end, and if so, ends it.
 	 * @returns {boolean} Whether the collector ended or not
 	 */
-	checkEnd() {
+	public checkEnd(): boolean {
 		const reason = this.endReason as any;
 		if (reason) this.stop(reason);
 		return Boolean(reason);

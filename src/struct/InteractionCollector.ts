@@ -1,11 +1,11 @@
 "use strict";
 
 import { Collector, CollectorOptions } from "./Collector";
-import type { TextableChannel, Guild, Constants, Message, Client, GuildTextableChannel, ThreadChannel } from "eris";
+import type { TextableChannel, Guild, Constants, Message, Client, GuildTextableChannel, ThreadChannel, Interaction } from "eris";
 import { incrementMaxListeners, decrementMaxListeners } from "../util";
 import { type ComponentTypes } from "./BaseComponent";
 
-export type InteractionTypes = typeof Constants.InteractionTypes;
+export type InteractionTypes = keyof typeof Constants.InteractionTypes;
 
 /**
  * @extends {CollectorOptions}
@@ -19,7 +19,7 @@ export type InteractionTypes = typeof Constants.InteractionTypes;
  * @property {Message} [message] The message to listen to interactions from
  */
 
-interface InteractionCollectorOptions extends CollectorOptions {
+interface InteractionCollectorOptions<T extends Interaction> extends CollectorOptions<T> {
 	channel?: TextableChannel;
 	componentType?: ComponentTypes;
 	guild?: Guild;
@@ -42,10 +42,13 @@ interface InteractionCollectorOptions extends CollectorOptions {
  */
 
 class InteractionCollector<T> extends Collector<T> {
-    public channelID: string;
-    public messageInteractionID: string;
-    public componentType: ComponentTypes;
-
+    public channelID: string | null;
+    public messageInteractionID: string | null;
+    public componentType: ComponentTypes | null;
+    public guildID: string | null;
+    public interactionType: InteractionTypes | null;
+    public messageID: string | null;
+    public options: InteractionCollectorOptions<T>;
 
 	/**
 	 * @param {Client} client The client on which to collect interactions
@@ -248,7 +251,7 @@ class InteractionCollector<T> extends Collector<T> {
 	 * @type {?string}
 	 * @readonly
 	 */
-	get endReason() {
+	public get endReason(): string | null {
 		if (this.options.max && this.total >= this.options.max) return "limit";
 		if (
 			this.options.maxComponents &&

@@ -16,7 +16,7 @@ export class Button extends BaseComponent<"BUTTON"> {
 	public style?: number;
 	public url?: string;
 
-	public constructor(data: ButtonOptions) {
+	public constructor(data: ButtonOptions = {} as ButtonOptions) {
 		super("BUTTON");
 
 		/**

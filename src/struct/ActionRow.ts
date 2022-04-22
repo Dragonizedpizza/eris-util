@@ -8,7 +8,7 @@ import { BaseComponent, UsableComponent } from "./BaseComponent";
 export class ActionRow extends BaseComponent<"ACTION_ROW"> {
 	public components: UsableComponent[];
 
-	constructor(components: UsableComponent[]) {
+	constructor(components: UsableComponent[] = []) {
 		super("ACTION_ROW");
 
 		/**

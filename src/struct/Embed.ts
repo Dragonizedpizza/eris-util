@@ -13,7 +13,7 @@ export class Embed {
 	public thumbnail?: MediaData;
 	public image?: MediaData;
 	public video?: MediaData;
-	public timestamp?: number;
+	public timestamp?: string;
 	public footer?: FooterData;
 
 	public constructor(data?: EmbedData) {
@@ -87,7 +87,7 @@ export class Embed {
 
 		/**
 		 * The embed timestamp.
-		 * @type {Number?}
+		 * @type {String?}
 		 */
 
 		this.timestamp = data.timestamp;
@@ -422,11 +422,13 @@ export class Embed {
 
 	public setTimestamp(timestamp: Date): Embed;
 	public setTimestamp(timestamp: number): Embed;
-	public setTimestamp(timestamp: Date | number = Date.now()): Embed {
+	public setTimestamp(timestamp: Date | number | string = Date.now()): Embed {
 		let setTimestamp;
 
-		if (typeof timestamp === "object") setTimestamp = timestamp;
+		if (typeof timestamp === "object") setTimestamp = timestamp.getTime();
 		else setTimestamp = setTimestamp;
+
+		this.timestamp = setTimestamp!.toString();
 
 		return this;
 	}
@@ -548,6 +550,6 @@ export interface EmbedData {
 	thumbnail?: MediaData;
 	image?: MediaData;
 	video?: MediaData;
-	timestamp?: number;
+	timestamp?: string;
 	footer?: FooterData;
 }

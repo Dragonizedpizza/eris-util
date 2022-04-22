@@ -1,3 +1,6 @@
+import EventEmitter from "events";
+import { type Constants, GuildTextableChannel } from "eris";
+
 export const Colors: Record<ColorStrings, number> = {
 	DEFAULT: 0x000000,
 	WHITE: 0xffffff,
@@ -53,6 +56,20 @@ export function resolveColor(color: ColorResolvable): number {
 
 	return color;
 }
+
+export function incrementMaxListeners(target: EventEmitter) {
+    const maxListeners = target.getMaxListeners();
+    if (maxListeners !== 0) {
+      target.setMaxListeners(maxListeners + 1);
+    }
+};
+
+export function decrementMaxListeners(target: EventEmitter) {
+    const maxListeners = target.getMaxListeners();
+    if (maxListeners !== 0) {
+      target.setMaxListeners(maxListeners - 1);
+    }
+};
 
 export type HexColorString = `#${string}`;
 

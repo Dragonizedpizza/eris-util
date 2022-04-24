@@ -1,4 +1,5 @@
-import { BaseComponent, UsableComponent } from "./BaseComponent";
+import { ActionRowComponents } from "eris";
+import { BaseComponent } from "./BaseComponent";
 
 /**
  * A row of components.
@@ -6,14 +7,14 @@ import { BaseComponent, UsableComponent } from "./BaseComponent";
  */
 
 export class ActionRow extends BaseComponent<"ACTION_ROW"> {
-	public components: UsableComponent[];
+	public components: ActionRowComponents[];
 
-	constructor(components: UsableComponent[] = []) {
+	constructor(components: ActionRowComponents[] = []) {
 		super("ACTION_ROW");
 
 		/**
 		 * The components within this action row.
-		 * @type {UsableComponent[]}
+		 * @type {ActionRowComponents[]}
 		 */
 
 		this.components = components;
@@ -21,11 +22,11 @@ export class ActionRow extends BaseComponent<"ACTION_ROW"> {
 
 	/**
 	 * Add a component to this action row.
-	 * @param {UsableComponent} component The component to add.
+	 * @param {ActionRowComponents} component The component to add.
 	 * @returns {ActionRow}
 	 */
 
-	public addComponent(component: UsableComponent): ActionRow {
+	public addComponent(component: ActionRowComponents): ActionRow {
 		this.components.push(component);
 
 		return this;
@@ -37,7 +38,7 @@ export class ActionRow extends BaseComponent<"ACTION_ROW"> {
 	 * @returns {ActionRow}
 	 */
 
-	public addComponents(...components: UsableComponent[]): ActionRow {
+	public addComponents(...components: ActionRowComponents[]): ActionRow {
 		this.components.push(...components);
 
 		return this;

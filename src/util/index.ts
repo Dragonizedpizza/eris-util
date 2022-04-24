@@ -110,3 +110,5 @@ export type ColorResolvable =
 	| number
 	| number[]
 	| HexColorString;
+
+export type valueof<T> = T[keyof T];

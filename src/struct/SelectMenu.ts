@@ -1,22 +1,31 @@
-import { BaseComponent } from "./BaseComponent";
+import {
+	SelectMenu as ErisSelectMenu,
+	SelectMenuOptions as BaseSelectOption,
+} from "eris";
+import { BaseComponent, ComponentEmoji, ComponentEmojiOption } from "./BaseComponent";
 
-export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
+export class SelectMenu
+	extends BaseComponent<"SELECT_MENU">
+	implements ErisSelectMenu
+{
 	public custom_id!: string;
 	public options!: SelectOption[];
 	public placeholder?: string;
 	public min_values?: number;
 	public max_values?: number;
-	public disabled?: string;
+	public disabled?: boolean;
 
 	public constructor(data: SelectMenuOptions = {} as SelectMenuOptions) {
 		super("SELECT_MENU");
+
+		const one = <T = null>(...args: string[]) => this.one<T>(data, ...args);
 
 		/**
 		 * The select menu custom ID.
 		 * @type {String}
 		 */
 
-		this.custom_id = data.customID;
+		this.custom_id = one("customID", "custom_id")!;
 
 		/**
 		 * The select menu options.
@@ -49,15 +58,16 @@ export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
 		 * @type {String?}
 		 */
 
-		this.min_values = data.minValues;
+		this.min_values = one("minValues", "min_values");
 
 		/**
 		 * The select menu maximum values.
 		 * @type {String?}
 		 */
 
-		this.max_values = data.maxValues;
+		this.max_values = one("maxValues", "max_values");
 	}
+
 	/**
 	 * Set the select menu custom ID.
 	 * @param {String} id The select menu custom ID.
@@ -101,7 +111,7 @@ export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
 	 * @param {SelectOption | string} option The option to add, as an object or the option label, as a string.
 	 * @param {String} value The option value.
 	 * @param {String} description The option description.
-	 * @param {String} emoji The option emoji.
+	 * @param {ComponentEmoji} emoji The option emoji.
 	 * @param {Boolean} isDefault Whether this option is the default option.
 	 * @returns {SelectMenu}
 	 * @example
@@ -119,7 +129,7 @@ export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
 		option: string,
 		value: string,
 		description?: string,
-		emoji?: string,
+		emoji?: ComponentEmoji | string,
 		isDefault?: boolean,
 	): SelectMenu;
 	public addOption(option: SelectOption): SelectMenu;
@@ -127,7 +137,7 @@ export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
 		option: SelectOption | string,
 		value?: string,
 		description?: string,
-		emoji?: string,
+		emoji?: ComponentEmoji | string,
 		isDefault?: boolean,
 	): SelectMenu {
 		this.options.push(
@@ -141,7 +151,7 @@ export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
 		option: SelectOption | string,
 		value?: string,
 		description?: string,
-		emoji?: string,
+		emoji?: ComponentEmoji | string,
 		isDefault?: boolean,
 	): SelectOption {
 		if (typeof option === "string")
@@ -149,26 +159,18 @@ export class SelectMenu extends BaseComponent<"SELECT_MENU"> {
 				label: option,
 				value: value!,
 				description,
-				emoji,
+				emoji: emoji ? this._resolveEmoji(emoji!) : undefined,
 				default: isDefault,
 			};
-		else return option;
+		else if (option.emoji) option.emoji = this._resolveEmoji(option.emoji!);
+		return option;
 	}
 }
 
-export interface SelectOption {
-	label: string;
-	value: string;
-	description?: string;
-	emoji?: string;
-	default?: boolean;
-}
-
-export interface SelectMenuOptions {
-	customID: string;
-	disabled?: boolean;
-	options: SelectOption[];
-	placeholder?: string;
+interface SelectMenuOptions extends ErisSelectMenu {
+	customID?: string;
 	minValues?: number;
 	maxValues?: number;
 }
+
+type SelectOption = BaseSelectOption & { emoji?: ComponentEmojiOption };

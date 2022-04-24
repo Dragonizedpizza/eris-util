@@ -1,5 +1,5 @@
 import { valueof } from "../util";
-import { BaseComponent, ComponentEmoji } from "./BaseComponent";
+import { BaseComponent, ComponentEmoji, ComponentEmojiOption } from "./BaseComponent";
 import { Constants, ButtonBase } from "eris";
 
 const { ButtonStyles } = Constants;
@@ -96,14 +96,14 @@ export class Button<Style extends ButtonStyle> extends BaseComponent<"BUTTON"> {
 
 	/**
 	 * Set the button emoji.
-	 * @param {ComponentEmoji | string} emoji The button emoji.
+	 * @param {ComponentEmojiOption} emoji The button emoji.
 	 * @returns {Button<Style>}
 	 * @example
 	 * // Create a button with an emoji.
 	 * button.setEmoji("🔥");
 	 */
 
-	public setEmoji(emoji: ComponentEmoji | string): Button<Style> {
+	public setEmoji(emoji: ComponentEmojiOption): Button<Style> {
 		this.emoji = this._resolveEmoji(emoji);
 
 		return this;

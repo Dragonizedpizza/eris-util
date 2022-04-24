@@ -16,7 +16,7 @@ export abstract class Collector<V> extends EventEmitter {
 	public filter: CollectorFilter<V[]>;
 	public options: CollectorOptions<V[]>;
 
-	constructor(client: Client, options: CollectorOptions = {}) {
+	constructor(client: Client, options: CollectorOptions<V> = {}) {
 		super();
 
 		/**

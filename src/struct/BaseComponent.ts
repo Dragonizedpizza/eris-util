@@ -28,7 +28,7 @@ export class BaseComponent<TypeValue extends keyof ComponentTypes> {
 
 		return undefined;
 	}
-    protected _resolveEmoji(emoji: ComponentEmoji | string) {
+    protected _resolveEmoji(emoji: ComponentEmojiOption) {
         if (typeof emoji === "string") {
             if (emoji.startsWith("<") && emoji.endsWith(">")) {
                 const [, animated, name, id] = emoji.match(/<(a)?:([a-zA-Z0-9_]+):([0-9]+)>/)!;

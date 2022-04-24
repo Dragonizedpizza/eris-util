@@ -111,7 +111,7 @@ export class SelectMenu
 	 * @param {SelectOption | string} option The option to add, as an object or the option label, as a string.
 	 * @param {String} value The option value.
 	 * @param {String} description The option description.
-	 * @param {ComponentEmoji} emoji The option emoji.
+	 * @param {ComponentEmojiOption} emoji The option emoji.
 	 * @param {Boolean} isDefault Whether this option is the default option.
 	 * @returns {SelectMenu}
 	 * @example
@@ -129,7 +129,7 @@ export class SelectMenu
 		option: string,
 		value: string,
 		description?: string,
-		emoji?: ComponentEmoji | string,
+		emoji?: ComponentEmojiOption,
 		isDefault?: boolean,
 	): SelectMenu;
 	public addOption(option: SelectOption): SelectMenu;
@@ -137,7 +137,7 @@ export class SelectMenu
 		option: SelectOption | string,
 		value?: string,
 		description?: string,
-		emoji?: ComponentEmoji | string,
+		emoji?: ComponentEmojiOption,
 		isDefault?: boolean,
 	): SelectMenu {
 		this.options.push(
@@ -151,7 +151,7 @@ export class SelectMenu
 		option: SelectOption | string,
 		value?: string,
 		description?: string,
-		emoji?: ComponentEmoji | string,
+		emoji?: ComponentEmojiOption,
 		isDefault?: boolean,
 	): SelectOption {
 		if (typeof option === "string")
